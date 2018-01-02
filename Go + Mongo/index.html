@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+			<title>User Input</title>			
+  </head>
+  <body>
+	  <h1 id="h1">Registration</h1>
+
+			<form action="/" method="post">
+				<h3>Account Info:</h3>
+				User Name: <input type="text"id="userName" name="userName"><br>
+				Email: <input type="text" id="email" name="email"><br>
+				Password: <input type="password" id="password"  name="password"><br>
+				Confirm Password: <input type="password" id="confirmPass"  name="confirmPass"><br>
+				<h3>User Info:</h3>
+				First Name: <input type="text" id="firstName" name="fName"><br>
+				Last Name: <input type="text" id="lastName"name="lName"><br>
+				Age: <input type="text" id="age" name="age"><br><br>
+				<input type="submit" id="btnSubmit" value="Submit">
+			</form>
+			<div id="contactError"></div>
+
+			<!-- client side validation --> 
+			
+			<script>
+				window.addEventListener("load", function window_onload(e) {
+					
+				 //When the user clicks submit, run our isValidForm check.
+					 document.getElementById("btnSubmit").addEventListener('click', validateForm); 
+						  
+				 function validateForm(e) {
+				 
+				 //Storing our textboxes as variables
+					 const contactErrorMsg = document.getElementById("contactError");
+					 const userName = document.getElementById("userName");
+					 const fNameTxtbox = document.getElementById("firstName");
+					 const lNameTxtbox = document.getElementById("lastName"); 
+					 const emailTxtbox = document.getElementById("email");
+					 const password  = document.getElementById("password");   
+					 const confirmPass  = document.getElementById("confirmPass");  
+					 const age = document.getElementById('age');
+					 
+				 
+				  //Phone  and Email number Regex
+				  const emailRegex = new RegExp("[a-zA-Z0-9._-]+@{1}[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}");
+				
+					 
+				//Creating array for our possible error mesages.
+					 const errors = [];
+				
+				 //Check to see if the user left the First, Last, Email and Phone text boxes empty. Display an error message as needed.
+						 
+					if (!userName.value.match(/\S/)) {
+						errors.push({ field: userName, message: "User name required." });
+					}
+					if (!emailRegex.test(emailTxtbox.value)) {
+						errors.push({ field: emailTxtbox, message: "Enter a valid email."});
+					}
+					if (!password.value.match(/\S/)) {
+						errors.push({ field: password, message: "Password required." });
+					}
+					if (confirmPass.value != password.value){
+						errors.push({ field: password, message: "Passwords do not match." });
+					}					
+					if (!fNameTxtbox.value.match(/\S/)) {
+						errors.push({ field: fNameTxtbox, message: "First name required." });
+					}
+					if (!lNameTxtbox.value.match(/\S/)) {
+						errors.push({ field: lNameTxtbox, message: "Last name required." });
+					}
+					if (age.value < 18) {
+						errors.push({ field: age, message: "Age required." });
+					}
+					
+				
+							
+				// Functional array loops => filter(), reduce(), find()
+					   const tempArray = errors.reduce(function(output, element) {
+						 if(output.indexOf(element.message) === -1) {
+						   output.push(element.message);
+						 }
+						 return output;
+					   }, []);
+				 if (errors.length > 0){
+					let message = "Please fill out all the required information: ";
+					   message += "<ul>";
+					   for(let i in tempArray) {
+						 message += "\n";
+						 message += "<li>"+ tempArray[i] +"</li>";
+					   }
+					   message += "</ul>";
+					   
+					   contactErrorMsg.innerHTML = message; 
+					   contactErrorMsg.style.display = 'block';
+				 
+					   e.preventDefault(); 
+					 }
+				 }
+					  
+				 });
+			</script>
+	</body>
+</html>
