@@ -22,8 +22,7 @@ type User struct {
 // Load the login.html template.
 var tmpl = template.Must(template.New("tmpl").ParseFiles("login.html"))
 
-func main() {
-	// http.HandleFunc("/login", login)
+func main() {	
 	// Serve / with the login.html file.
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if err := tmpl.ExecuteTemplate(w, "login.html", nil); err != nil {
@@ -36,13 +35,6 @@ func main() {
 		panic(err)
 	}
 	defer session.Close()
-
-	// var userName = ("userName")
-	// var password = ("password")
-	// hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-	// if err != nil {
-	// 	panic(err)
-	// }
 
 	//variable of type User (struct)
 	var results User
@@ -77,15 +69,3 @@ func main() {
 	log.Fatal(http.ListenAndServe(":5000", nil))
 
 }
-
-// func login(w http.ResponseWriter, r *http.Request) {
-// 	fmt.Println("method:", r.Method) //get request method
-// 	if r.Method == "GET" {
-// 		t, _ := template.ParseFiles("login.html")
-// 		t.Execute(w, nil)
-// 	} else {
-// 		r.ParseForm()
-// 		var loginName = r.FormValue("userName")
-// 		var loginPass = r.FormValue("password")
-// 	}
-//}
