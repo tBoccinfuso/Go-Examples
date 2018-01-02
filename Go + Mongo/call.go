@@ -31,7 +31,7 @@ func main() {
 		}
 	})
 
-	session, err := mgo.Dial("mongodb://testUser:password@ds051553.mlab.com:51553/test_v1")
+	session, err := mgo.Dial("mongodb://127.0.0.1/GoTesting");
 	if err != nil {
 		panic(err)
 	}
