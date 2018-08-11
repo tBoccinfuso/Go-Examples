@@ -8,7 +8,7 @@ import (
 	"net/http"      // allows us to create a webserver
 	"os"            //operating system. Used to create and read files.
 
-	"golang.org/x/crypto/bcrypt"
+	"golang.org/x/crypto/bcrypt" // package for encrypting passwords
 )
 
 type Person struct {
